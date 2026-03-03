@@ -1,6 +1,7 @@
 {
     "cli": {
-        "version": ">= 16.0.0"
+        "version": ">= 16.0.0",
+        "appVersionSource": "remote"
     },
     "build": {
         "preview": {
@@ -12,7 +13,15 @@
         },
         "production": {
             "android": {
-                "buildType": "apk"
+                "buildType": "app-bundle"
+            },
+            "autoIncrement": true
+        },
+        "optimized": {
+            "distribution": "internal",
+            "android": {
+                "buildType": "apk",
+                "gradleCommand": ":app:assembleRelease"
             },
             "autoIncrement": true
         }
