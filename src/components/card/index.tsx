@@ -20,7 +20,7 @@ export default function Card({ title, description, groupId, isSecret, createdAt,
   const group = groupId ? groups.find(g => g.id === groupId) : null
   const ribbonColor = group ? theme.product[group.colorKey] : theme.product.green_500
 
-  const displayTitle = isSecret ? title.replace(/./g, '*') : title
+  const displayTitle = title
   const displayDescription = isSecret ? '********************' : description
 
   // Formatar data para dd-mm-yyyy
