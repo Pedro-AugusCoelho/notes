@@ -9,7 +9,7 @@ import { useAppNavigation, useNotes, useGroups } from '@src/hooks'
 import { useEffect, useState, useRef } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { theme } from '@src/../theme'
-import { TextInput, Alert, Modal } from 'react-native'
+import { TextInput, Alert, Modal, KeyboardAvoidingView, Platform } from 'react-native'
 import * as Haptics from 'expo-haptics'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { passwordStorage } from '@src/services/storage'
@@ -373,7 +373,11 @@ export default function Home() {
           setSelectedNote(null)
         }}
       >
-        <S.PasswordModalOverlay>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
+          <S.PasswordModalOverlay>
           <S.PasswordModalContent>
             <S.PasswordModalIcon>
               <Ionicons name="lock-closed" size={48} color={theme.product.green_500} />
@@ -435,7 +439,8 @@ export default function Home() {
               </S.PasswordModalButton>
             </S.PasswordModalButtons>
           </S.PasswordModalContent>
-        </S.PasswordModalOverlay>
+          </S.PasswordModalOverlay>
+        </KeyboardAvoidingView>
       </Modal>
     </BackgroundScreen>
   )

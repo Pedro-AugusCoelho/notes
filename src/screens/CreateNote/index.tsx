@@ -10,7 +10,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
-import { Modal, ScrollView, Alert } from 'react-native'
+import { Modal, ScrollView, Alert, KeyboardAvoidingView, Platform } from 'react-native'
 import * as Haptics from 'expo-haptics'
 import { Ionicons } from '@expo/vector-icons'
 import { passwordStorage } from '@src/services/storage'
@@ -305,8 +305,12 @@ export default function CreateNote() {
         transparent
         onRequestClose={() => setPasswordModalVisible(false)}
       >
-        <S.PasswordModalOverlay>
-          <S.PasswordModalContent>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
+          <S.PasswordModalOverlay>
+            <S.PasswordModalContent>
             <S.PasswordModalIcon>
               <Ionicons name="lock-closed" size={48} color={theme.product.green_500} />
             </S.PasswordModalIcon>
@@ -358,8 +362,9 @@ export default function CreateNote() {
                 </S.PasswordModalButtonText>
               </S.PasswordModalButton>
             </S.PasswordModalButtons>
-          </S.PasswordModalContent>
-        </S.PasswordModalOverlay>
+            </S.PasswordModalContent>
+          </S.PasswordModalOverlay>
+        </KeyboardAvoidingView>
       </Modal>
     </BackgroundScreen>
   )

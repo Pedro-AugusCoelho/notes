@@ -3,7 +3,7 @@ import BackgroundScreen from '@src/components/background-screen'
 import { Input } from '@src/components/input'
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
-import { Modal, Alert, Switch } from 'react-native'
+import { Modal, Alert, Switch, KeyboardAvoidingView, Platform } from 'react-native'
 import * as Haptics from 'expo-haptics'
 import { passwordStorage } from '@src/services/storage'
 import { backupService } from '@src/services/backup'
@@ -282,8 +282,12 @@ export default function Settings() {
           setConfirmNewPassword('')
         }}
       >
-        <S.ModalOverlay>
-          <S.ModalContent>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
+          <S.ModalOverlay>
+            <S.ModalContent>
             <S.ModalIcon>
               <Ionicons name="key" size={48} color={theme.product.green_500} />
             </S.ModalIcon>
@@ -345,8 +349,9 @@ export default function Settings() {
                 </S.ModalButtonText>
               </S.ModalButton>
             </S.ModalButtons>
-          </S.ModalContent>
-        </S.ModalOverlay>
+            </S.ModalContent>
+          </S.ModalOverlay>
+        </KeyboardAvoidingView>
       </Modal>
     </BackgroundScreen>
   )
